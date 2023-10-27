@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Penjualan</title>
+    <title>Cek Tarif</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -31,6 +31,55 @@
     <link rel="stylesheet" href="assets/css/responsive.css">
     <!-- modernizr css -->
     <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <style>S
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #3e8e41;
+}
+
+#myInput {
+  box-sizing: border-box;
+  background-image: url('searchicon.png');
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 14px 20px 12px 30px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+#myInput:focus {outline: 3px solid #ddd;}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown input[type=text]:focus {
+    outline: 3px solid #ddd;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f6f6f6;
+    width: 170px;
+    overflow: scroll;
+    border: 1px solid #ddd;
+    z-index: 1;
+    max-height: 200px;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+</style>
 </head>
 
 <body>
@@ -109,10 +158,10 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">Penjualan</h4>
+                            <h4 class="page-title pull-left">Cek Tarif</h4>
                             <ul class="breadcrumbs pull-left">
                                 <li><a href="index.php">Home</a></li>
-                                <li><span>Informasi Transaksi Penjualan</span></li>
+                                <li><span>Cek Tarif Kiriman</span></li>
                             </ul>
                         </div>
                     </div>
@@ -138,66 +187,58 @@
             </div>
             <!-- page title area end -->
             <div class="main-content-inner">
-                <br><br>
                 <div class="row">
-                    <div class="col-xl-3 col-ml-6 col-mdl-4 col-sm-6 mt-5">
-                        <div class="card">
-                            <div class="pricing-list">
-                                <div class="prc-head">
-                                    <h4>Membership</h4>
-                                </div>
-                                <div class="prc-list">
-                                    <ul>
-                                        <li><a href="#">Term financing</a></li>
-                                        <li><a href="#">Access up to $10,000</a></li>
-                                        <li><a href="#">Get: USD</a></li>
-                                        <li><a href="#">3-24 Month Terms</a></li>
-                                        <li class="bold"><a href="#">1 SALT/year</a></li>
-                                    </ul>
-                                    <a href="#">Buy Package</a>
+                <div class="col-lg-6 col-ml-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card mt-5">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Cek Tarif Kiriman</h4>
+                                        <form class="needs-validation" novalidate="">
+                                            <div class="form-row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="validationCustom01">Asal</label>
+                                                    <div class="dropdown">
+                                                    <input type="text" onclick="myFunction()" class="form-control" id="dropdownInput" placeholder="Masukan Kota Asal" readonly required>
+                                                    <div id="myDropdown" class="dropdown-content">
+                                                        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="validationCustom02">Tujuan</label>
+                                                    <input type="text" class="form-control" id="validationCustom02" placeholder="Masukan Kota Tujuan" required="">
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="validationCustom02">Tujuan</label>
+                                                    <input type="text" class="form-control" id="validationCustom02" placeholder="Berat (Kg)" required="">
+                                                </div>
+                                                
+
+                                            </div>
+                                            <button class="btn btn-primary" type="submit">Submit form</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
+                            <!-- Server side end -->
                         </div>
                     </div>
-                    <div class="col-xl-3 col-ml-6 col-mdl-4 col-sm-6 mt-5">
-                        <div class="card">
-                            <div class="pricing-list">
-                                <div class="prc-head">
-                                    <h4>Premier</h4>
-                                </div>
-                                <div class="prc-list">
-                                    <ul>
-                                        <li><a href="#">Term Finnacing & Line of Credit</a></li>
-                                        <li><a href="#">Access up to $10,000</a></li>
-                                        <li><a href="#">Get: USD, EUR, GBP, JPY, RMB</a></li>
-                                        <li><a href="#">1 hour - 36 Month Terms</a></li>
-                                        <li class="bold"><a href="#">30 SALT/year</a></li>
-                                    </ul>
-                                    <a href="#">Buy Package</a>
+                    <div class="col-lg-6 col-ml-12">
+                        <div class="row">
+                            <!-- Textual inputs start -->
+                            <div class="col-12 mt-5">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title">Hasil Cek Tarif</h4>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-ml-6 col-mdl-4 col-sm-6 mt-5">
-                        <div class="card">
-                            <div class="pricing-list">
-                                <div class="prc-head">
-                                    <h4>Enterprise</h4>
-                                </div>
-                                <div class="prc-list">
-                                    <ul>
-                                        <li><a href="#">Term Finnacing & Line of Credit</a></li>
-                                        <li><a href="#">Access up to $10,000</a></li>
-                                        <li><a href="#">Get: Ad Hoc Currency Selection</a></li>
-                                        <li><a href="#">24 hour - 1 Year Terms</a></li>
-                                        <li class="bold"><a href="#">Contact for Pricing</a></li>
-                                    </ul>
-                                    <a href="#">Buy Package</a>
-                                </div>
-                            </div>
+                            <!-- Textual inputs end -->
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             <!-- main content area end -->
             <!-- footer area start-->
@@ -225,6 +266,66 @@
         <!-- others plugins -->
         <script src="assets/js/plugins.js"></script>
         <script src="assets/js/scripts.js"></script>
+        <script>
+        var options = [
+            "Yogyakarta",
+            "Surabaya",
+            "Surakarta",
+            "Tasikmalaya",
+            "Bogor",
+            "Yogyakarta",
+            "Surabaya",
+            "Surakarta",
+            "Tasikmalaya"
+        ];
+
+        var dropdownDiv = document.getElementById('myDropdown');
+
+        options.forEach(function(option) {
+            var a = document.createElement('a');
+            a.textContent = option;
+            a.href = "#" + option.toLowerCase();
+            dropdownDiv.appendChild(a);
+        });
+
+        document.addEventListener("click", function(event) {
+            var dropdown = document.getElementById("myDropdown");
+            var input = document.getElementById("dropdownInput");
+            if (event.target === input) {
+                if (dropdown.style.display === "none" || dropdown.style.display === "") {
+                    dropdown.style.display = "block";
+                } else {
+                    dropdown.style.display = "none";
+                }
+            } else if (event.target !== dropdown && !event.target.matches("#myInput")) {
+                dropdown.style.display = "none";
+            }
+        });
+
+        document.addEventListener("click", function(event) {
+            if (event.target.matches("#myDropdown a")) {
+                var selectedOption = event.target.textContent;
+                document.getElementById("dropdownInput").value = selectedOption;
+            }
+        });
+
+        function filterFunction() {
+            var input, filter, div, a, i;
+            input = document.getElementById('myInput');
+            filter = input.value.toUpperCase();
+            div = document.getElementById('myDropdown');
+            a = div.getElementsByTagName('a');
+            for (i = 0; i < a.length; i++) {
+                txtValue = a[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = '';
+                } else {
+                    a[i].style.display = 'none';
+                }
+            }
+        }
+    </script>
+        
 </body>
 
 </html>
