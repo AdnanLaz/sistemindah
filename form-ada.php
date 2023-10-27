@@ -190,7 +190,7 @@
                                                 <tr>
                                                     <td><?php echo $no++ ?></td>
                                                     <td><?php echo $data['nama_invoice']; ?></td>
-                                                    <td><a href='srtdash/<?php echo $data['url']?>'><i class='ti-eye'></i></a></td>
+                                                    <td><a href='srtdash/<?php echo $data['url']?>'><i class='ti-eye'>Test</i></a></td>
                                                 </tr>
                                             <?php }
                                                 } else {
