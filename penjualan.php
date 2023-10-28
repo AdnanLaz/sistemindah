@@ -5,6 +5,11 @@
     if (empty($_SESSION['username'])) {
         header("location:login2.html?pesan=belum.login");
     }
+    if(isset($_POST['submit'])) {
+        $asal = $_POST['asal'];
+        $tujuan = $_POST['tujuan'];
+        $berat = $_POST['berat'];
+    }
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -37,7 +42,18 @@
   background-color: #3e8e41;
 }
 
-#myInput {
+#myInputAsal {
+  box-sizing: border-box;
+  background-image: url('searchicon.png');
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 14px 20px 12px 30px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+#myInputTujuan {
   box-sizing: border-box;
   background-image: url('searchicon.png');
   background-position: 14px 12px;
@@ -194,29 +210,32 @@
                                 <div class="card mt-5">
                                     <div class="card-body">
                                         <h4 class="header-title">Cek Tarif Kiriman</h4>
-                                        <form class="needs-validation" novalidate="">
+                                        <form class="needs-validation" novalidate="" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                                             <div class="form-row">
                                                 <div class="col-md-4 mb-3">
                                                     <label for="validationCustom01">Asal</label>
                                                     <div class="dropdown">
-                                                    <input type="text" onclick="myFunction()" class="form-control" id="dropdownInput" placeholder="Masukan Kota Asal" readonly required>
-                                                    <div id="myDropdown" class="dropdown-content">
-                                                        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                                                        <input type="text" name="asal" onclick="myFunctionAsal()" class="form-control" id="dropdownInputAsal" placeholder="Masukan Kota Asal" readonly required>
+                                                        <div id="myDropdownAsal" class="dropdown-content">
+                                                            <input type="text" placeholder="Search.." id="myInputAsal" onkeyup="filterFunctionAsal()">
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="validationCustom01">Tujuan</label>
+                                                    <div class="dropdown">
+                                                        <input type="text" name="tujuan" onclick="myFunctionTujuan()" class="form-control" id="dropdownInputTujuan" placeholder="Masukan Kota Tujuan" readonly required>
+                                                        <div id="myDropdownTujuan" class="dropdown-content">
+                                                            <input type="text"  placeholder="Search.." id="myInputTujuan" onkeyup="filterFunctionTujuan()">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label for="validationCustom02">Tujuan</label>
-                                                    <input type="text" class="form-control" id="validationCustom02" placeholder="Masukan Kota Tujuan" required="">
+                                                    <label for="validationCustom02">Berat</label>
+                                                    <input type="text" name="berat" class="form-control" id="validationCustom02" placeholder="Berat (Kg)" required="">
                                                 </div>
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="validationCustom02">Tujuan</label>
-                                                    <input type="text" class="form-control" id="validationCustom02" placeholder="Berat (Kg)" required="">
-                                                </div>
-                                                
-
                                             </div>
-                                            <button class="btn btn-primary" type="submit">Submit form</button>
+                                            <button class="btn btn-primary" type="submit" name="submit" id="submitButton" disabled>Cek Tarif</button>
                                         </form>
                                     </div>
                                 </div>
@@ -228,9 +247,15 @@
                         <div class="row">
                             <!-- Textual inputs start -->
                             <div class="col-12 mt-5">
-                                <div class="card">
+                                <div class="card" <?php if (!isset($_POST['submit'])) { echo 'hidden'; } ?>>
                                     <div class="card-body">
                                         <h4 class="header-title">Hasil Cek Tarif</h4>
+                                        <p>Asal     : <?php echo $asal?></p>
+                                        <p>Tujuan   : <?php echo $tujuan?></p>
+                                        <p>Estimasi :  ---</p>
+                                        <p>Berat    : <?php echo $berat?></p>
+                                        <p>Harga/kg :  ---</p>
+                                        <p>Ongkir   :  ---</p>
                                     </div>
                                 </div>
                             </div>
@@ -267,53 +292,53 @@
         <script src="assets/js/plugins.js"></script>
         <script src="assets/js/scripts.js"></script>
         <script>
-        var options = [
-            "Yogyakarta",
-            "Surabaya",
-            "Surakarta",
-            "Tasikmalaya",
-            "Bogor",
-            "Yogyakarta",
-            "Surabaya",
-            "Surakarta",
-            "Tasikmalaya"
-        ];
+            var optionsTujuan = [
+                "Yogyakarta",
+                "Surabaya",
+                "Surakarta",
+                "Tasikmalaya",
+                "Bogor",
+                "Yogyakarta",
+                "Surabaya",
+                "Surakarta",
+                "Tasikmalaya"
+            ];
 
-        var dropdownDiv = document.getElementById('myDropdown');
+            var dropdownDivTujuan = document.getElementById('myDropdownTujuan');
 
-        options.forEach(function(option) {
-            var a = document.createElement('a');
-            a.textContent = option;
-            a.href = "#" + option.toLowerCase();
-            dropdownDiv.appendChild(a);
-        });
+            optionsTujuan.forEach(function(option) {
+                var a = document.createElement('a');
+                a.textContent = option;
+                a.href = "#" + option.toLowerCase();
+                dropdownDivTujuan.appendChild(a);
+            });
 
-        document.addEventListener("click", function(event) {
-            var dropdown = document.getElementById("myDropdown");
-            var input = document.getElementById("dropdownInput");
-            if (event.target === input) {
-                if (dropdown.style.display === "none" || dropdown.style.display === "") {
-                    dropdown.style.display = "block";
-                } else {
+            document.addEventListener("click", function(event) {
+                var dropdown = document.getElementById("myDropdownTujuan");
+                var input = document.getElementById("dropdownInputTujuan");
+                if (event.target === input) {
+                    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+                        dropdown.style.display = "block";
+                    } else {
+                        dropdown.style.display = "none";
+                    }
+                } else if (event.target !== dropdown && !event.target.matches("#myInputTujuan")) {
                     dropdown.style.display = "none";
                 }
-            } else if (event.target !== dropdown && !event.target.matches("#myInput")) {
-                dropdown.style.display = "none";
-            }
-        });
+            });
 
-        document.addEventListener("click", function(event) {
-            if (event.target.matches("#myDropdown a")) {
-                var selectedOption = event.target.textContent;
-                document.getElementById("dropdownInput").value = selectedOption;
-            }
-        });
+            document.addEventListener("click", function(event) {
+                if (event.target.matches("#myDropdownTujuan a")) {
+                    var selectedOption = event.target.textContent;
+                    document.getElementById("dropdownInputTujuan").value = selectedOption;
+                }
+            });
 
-        function filterFunction() {
+            function filterFunctionTujuan() {
             var input, filter, div, a, i;
-            input = document.getElementById('myInput');
+            input = document.getElementById('myInputTujuan');
             filter = input.value.toUpperCase();
-            div = document.getElementById('myDropdown');
+            div = document.getElementById('myDropdownTujuan');
             a = div.getElementsByTagName('a');
             for (i = 0; i < a.length; i++) {
                 txtValue = a[i].textContent || a[i].innerText;
@@ -323,8 +348,82 @@
                     a[i].style.display = 'none';
                 }
             }
+            var dropdown = document.getElementById("myDropdownTujuan");
+            dropdown.style.display = "block"; // Ditambahkan di sini
         }
+            var optionsAsal = ["Yogyakarta"];
+            var dropdownDivAsal = document.getElementById('myDropdownAsal');
+
+            optionsAsal.forEach(function(option) {
+                var a = document.createElement('a');
+                a.textContent = option;
+                a.href = "#" + option.toLowerCase();
+                dropdownDivAsal.appendChild(a);
+            });
+
+            document.addEventListener("click", function(event) {
+                var dropdown = document.getElementById("myDropdownAsal");
+                var input = document.getElementById("dropdownInputAsal");
+                if (event.target === input) {
+                    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+                        dropdown.style.display = "block";
+                    } else {
+                        dropdown.style.display = "none";
+                    }
+                } else if (event.target !== dropdown && !event.target.matches("#myInputAsal")) {
+                    dropdown.style.display = "none";
+                }
+            });
+
+            document.addEventListener("click", function(event) {
+                if (event.target.matches("#myDropdownAsal a")) {
+                    var selectedOption = event.target.textContent;
+                    document.getElementById("dropdownInputAsal").value = selectedOption;
+                }
+            });
+
+            function filterFunctionAsal() {
+            var input, filter, div, a, i;
+            input = document.getElementById('myInputAsal');
+            filter = input.value.toUpperCase();
+            div = document.getElementById('myDropdownAsal');
+            a = div.getElementsByTagName('a');
+            for (i = 0; i < a.length; i++) {
+                txtValue = a[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = '';
+                } else {
+                    a[i].style.display = 'none';
+                }
+            }
+            var dropdown = document.getElementById("myDropdownAsal");
+            dropdown.style.display = "block"; // Ditambahkan di sini
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            var hasilCekTarif = document.getElementById('hasilCekTarif');
+            <?php if (!isset($_POST['submit'])) { ?>
+                hasilCekTarif.removeAttribute('hidden');
+            <?php } ?>
+        });
+
+        function checkInputs() {
+        var asalInput = document.getElementById('dropdownInputAsal').value;
+        var tujuanInput = document.getElementById('dropdownInputTujuan').value;
+        var submitButton = document.getElementById('submitButton');
+
+        if (asalInput !== '' && tujuanInput !== '') {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+        }
+    }
+
+    document.addEventListener('input', checkInputs);
     </script>
+
+
+
+
         
 </body>
 
