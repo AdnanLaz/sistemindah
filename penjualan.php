@@ -9,6 +9,12 @@
         $asal = $_POST['asal'];
         $tujuan = $_POST['tujuan'];
         $berat = $_POST['berat'];
+
+        if ($tujuan == "Surabaya") {
+            $estimasi = "2 - 3 Hari";
+            $hargak = 3232;
+            $ongkir = $berat * $hargak;
+        }
     }
 ?>
 <!doctype html>
@@ -252,10 +258,10 @@
                                         <h4 class="header-title">Hasil Cek Tarif</h4>
                                         <p>Asal     : <?php echo $asal?></p>
                                         <p>Tujuan   : <?php echo $tujuan?></p>
-                                        <p>Estimasi :  ---</p>
+                                        <p>Estimasi : <?php echo $estimasi?></p>
                                         <p>Berat    : <?php echo $berat?></p>
-                                        <p>Harga/kg :  ---</p>
-                                        <p>Ongkir   :  ---</p>
+                                        <p>Harga/kg : Rp. <?php echo $hargak?></p>
+                                        <p>Ongkir   : Rp. <?php echo $ongkir?></p>
                                     </div>
                                 </div>
                             </div>
