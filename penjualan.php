@@ -233,7 +233,7 @@ if (isset($_POST['submit'])) {
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                     <label for="validationCustom02">Berat</label>
-                                                    <input type="text" name="berat" class="form-control" id="validationCustom02" placeholder="Berat (Kg)" required="">
+                                                    <input type="number" min="100" name="berat" class="form-control" id="validationCustom02" placeholder="Berat (Kg)" required="">
                                                 </div>
                                             </div>
                                             <button class="btn btn-primary" type="submit" name="submit" id="submitButton" disabled>Cek Tarif</button>
@@ -260,13 +260,16 @@ if (isset($_POST['submit'])) {
                                         ?>
                                                 <p>Asal     : <?php echo $asal; ?></p>
                                                 <p>Tujuan   : <?php echo $tujuan; ?></p>
-                                                <p>Harga/kg : Rp. <?php echo $data['harga']; ?></p>
+                                                <p>Harga/kg : Rp. <?php echo number_format($data['harga'], 0, ',', '.'); ?></p>
                                                 <p>Berat    : <?php echo $berat; ?> Kg</p>
-                                                <p>Ongkir   : Rp. <?php echo $ongkir; ?></p>
+                                                <p>Ongkir   : Rp. <?php echo number_format($ongkir, 0, ',', '.'); ?></p>
                                         <?php
                                             }
                                         ?>
                                     </div>
+                                </div>
+                                <div>
+                                
                                 </div>
                             </div>
                             <!-- Textual inputs end -->
@@ -302,70 +305,17 @@ if (isset($_POST['submit'])) {
         <script src="assets/js/plugins.js"></script>
         <script src="assets/js/scripts.js"></script>
         <script>
-            var optionsTujuan = [
-                "MEDAN",
-                "BANDA ACEH",
-                "PEKANBARU",
-                "DUMAI",
-                "BANDAR LAMPUNG",
-                "PADANG",
-                "BUKIT TINGGI",
-                "JAMBI",
-                "MUARA BUNGO",
-                "SUNGAI PENUH",
-                "PALEMBANG",
-                "MARTAPURA",
-                "MUARA ENIM",
-                "LAHAT",
-                "BENGKULU",
-                "LHOKSUMAWE",
-                "PEMATANG SIANTAR",
-                "PADANG SIDEMPUAN",
-                "TEBING TINGGI",
-                "BENGKALIS DARAT",
-                "BENGKALIS LAUT",
-                "PANGKALAN KERINCI",
-                "TEMBILAHAN",
-                "RENGAT",
-                "AIR MOLEK",
-                "PASIR PENGAIRAN",
-                "SIAK",
-                "KOTA BUMI",
-                "TENGGAMUS",
-                "METRO",
-                "PRINGSEWU",
-                "PARIAMAN",
-                "SOROLANGUN",
-                "PAGARALAM",
-                "PRABU MULIH",
-                "TANJUNG ENIM",
-                "LUBUK LINGGAU",
-                "SIANTAR",
-                "TAPANULI",
-                "RANTO PRAPAT",
-                "ASAHAN",
-                "SIBOLGA",
-                "MALABUH",
-                "ACEH SINGKIL",
-                "KUTACANE",
-                "PIDIE",
-                "BIREUN",
-                "TAKENGON",
-                "SIDIKALANG",
-                "KABANJAHE",
-                "BRASTAGI",
-                "BINJAI",
-                "STABAT",
-                "LANGSA",
-                "SIGLI",
-                "CALANG",
-                "PARAPAT",
-                "PAYAKUMBUH",
-                "ROKANHULU",
-                "ROKANHILIR",
-                "BAGAN SIAPI-API"
-            ];
-
+            const optionsTujuan = [
+                <?php
+                    include 'proses/koneksi.php';
+                    $query = mysqli_query($konek, "SELECT * FROM destinasi");
+                    while ($data = mysqli_fetch_array($query)) {?>
+                        
+                        "<?php echo $data['kota'];?>",
+                        <?php
+                    }?>
+            ]
+            
             var dropdownDivTujuan = document.getElementById('myDropdownTujuan');
 
             optionsTujuan.forEach(function(option) {
