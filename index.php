@@ -72,7 +72,7 @@
                                 <a href="packing.php" aria-expanded="true"><i class="fa fa-tags"></i><span>Packing</span></a>
                             </li>
                             <li>
-                                <a href="penjualan.php" aria-expanded="true"><i class="fa fa-money"></i><span>Penjualan</span></a>
+                                <a href="penjualan.php" aria-expanded="true"><i class="fa fa-money"></i><span>Cek Tarif</span></a>
                             </li>
                         </ul>
                     </nav>

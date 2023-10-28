@@ -144,7 +144,7 @@
                             </li>
                             <li>
                                 <a href="penjualan.php" aria-expanded="true"><i
-                                        class="fa fa-money"></i><span>Penjualan</span></a>
+                                        class="fa fa-money"></i><span>Cek Tarif</span></a>
                             </li>
                         </ul>
                     </nav>
@@ -259,8 +259,8 @@
                                         <p>Asal     : <?php echo $asal?></p>
                                         <p>Tujuan   : <?php echo $tujuan?></p>
                                         <p>Estimasi : <?php echo $estimasi?></p>
-                                        <p>Berat    : <?php echo $berat?></p>
                                         <p>Harga/kg : Rp. <?php echo $hargak?></p>
+                                        <p>Berat    : <?php echo $berat?> Kg</p>
                                         <p>Ongkir   : Rp. <?php echo $ongkir?></p>
                                     </div>
                                 </div>
