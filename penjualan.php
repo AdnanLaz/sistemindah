@@ -1,21 +1,16 @@
 <?php
-    session_start();
-    $username=$_SESSION['username'];
-    
-    if (empty($_SESSION['username'])) {
-        header("location:login2.html?pesan=belum.login");
-    }
-    if(isset($_POST['submit'])) {
-        $asal = $_POST['asal'];
-        $tujuan = $_POST['tujuan'];
-        $berat = $_POST['berat'];
-
-        if ($tujuan == "Surabaya") {
-            $estimasi = "2 - 3 Hari";
-            $hargak = 3232;
-            $ongkir = $berat * $hargak;
-        }
-    }
+session_start();
+if (!empty($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+} else {
+    header("location:login2.html?pesan=belum.login");
+    exit;
+}
+if (isset($_POST['submit'])) {
+    $asal = $_POST['asal'];
+    $tujuan = $_POST['tujuan'];
+    $berat = $_POST['berat'];
+}
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -256,12 +251,21 @@
                                 <div class="card" <?php if (!isset($_POST['submit'])) { echo 'hidden'; } ?>>
                                     <div class="card-body">
                                         <h4 class="header-title">Hasil Cek Tarif</h4>
-                                        <p>Asal     : <?php echo $asal?></p>
-                                        <p>Tujuan   : <?php echo $tujuan?></p>
-                                        <p>Estimasi : <?php echo $estimasi?></p>
-                                        <p>Harga/kg : Rp. <?php echo $hargak?></p>
-                                        <p>Berat    : <?php echo $berat?> Kg</p>
-                                        <p>Ongkir   : Rp. <?php echo $ongkir?></p>
+                                        <?php
+                                            include 'proses/koneksi.php';
+                                            $query = mysqli_query($konek, "SELECT * FROM destinasi WHERE kota = '$tujuan'");
+                                            while ($data = mysqli_fetch_array($query)) {
+                                                $hargak = $data['harga'];
+                                                $ongkir = $berat * $hargak;
+                                        ?>
+                                                <p>Asal     : <?php echo $asal; ?></p>
+                                                <p>Tujuan   : <?php echo $tujuan; ?></p>
+                                                <p>Harga/kg : Rp. <?php echo $data['harga']; ?></p>
+                                                <p>Berat    : <?php echo $berat; ?> Kg</p>
+                                                <p>Ongkir   : Rp. <?php echo $ongkir; ?></p>
+                                        <?php
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -299,15 +303,67 @@
         <script src="assets/js/scripts.js"></script>
         <script>
             var optionsTujuan = [
-                "Yogyakarta",
-                "Surabaya",
-                "Surakarta",
-                "Tasikmalaya",
-                "Bogor",
-                "Yogyakarta",
-                "Surabaya",
-                "Surakarta",
-                "Tasikmalaya"
+                "MEDAN",
+                "BANDA ACEH",
+                "PEKANBARU",
+                "DUMAI",
+                "BANDAR LAMPUNG",
+                "PADANG",
+                "BUKIT TINGGI",
+                "JAMBI",
+                "MUARA BUNGO",
+                "SUNGAI PENUH",
+                "PALEMBANG",
+                "MARTAPURA",
+                "MUARA ENIM",
+                "LAHAT",
+                "BENGKULU",
+                "LHOKSUMAWE",
+                "PEMATANG SIANTAR",
+                "PADANG SIDEMPUAN",
+                "TEBING TINGGI",
+                "BENGKALIS DARAT",
+                "BENGKALIS LAUT",
+                "PANGKALAN KERINCI",
+                "TEMBILAHAN",
+                "RENGAT",
+                "AIR MOLEK",
+                "PASIR PENGAIRAN",
+                "SIAK",
+                "KOTA BUMI",
+                "TENGGAMUS",
+                "METRO",
+                "PRINGSEWU",
+                "PARIAMAN",
+                "SOROLANGUN",
+                "PAGARALAM",
+                "PRABU MULIH",
+                "TANJUNG ENIM",
+                "LUBUK LINGGAU",
+                "SIANTAR",
+                "TAPANULI",
+                "RANTO PRAPAT",
+                "ASAHAN",
+                "SIBOLGA",
+                "MALABUH",
+                "ACEH SINGKIL",
+                "KUTACANE",
+                "PIDIE",
+                "BIREUN",
+                "TAKENGON",
+                "SIDIKALANG",
+                "KABANJAHE",
+                "BRASTAGI",
+                "BINJAI",
+                "STABAT",
+                "LANGSA",
+                "SIGLI",
+                "CALANG",
+                "PARAPAT",
+                "PAYAKUMBUH",
+                "ROKANHULU",
+                "ROKANHILIR",
+                "BAGAN SIAPI-API"
             ];
 
             var dropdownDivTujuan = document.getElementById('myDropdownTujuan');
