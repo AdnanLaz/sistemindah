@@ -37,7 +37,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Print Invoice</title>
+    <title>TAGIHAN A.D.A <?php echo $tanggalTerawal; ?> s/d <?php echo $tanggalTerakhir; ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
@@ -196,29 +196,12 @@
             <p><b>Catatan :</b></p>
         </div>
     </section>
-    <button id="download-pdf">Download PDF</button>
 </body>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("download-pdf").addEventListener("click", function () {
-                const pdfButton = this;
-                pdfButton.disabled = true;
-
-                html2canvas(document.body).then(function (canvas) {
-                    const pdf = new jsPDF("p", "mm", "a4"); // Ensure that jsPDF is recognized
-                    pdf.addImage(canvas.toDataURL("image/jpeg"), "JPEG", 0, 0, 210, 297);
-                    pdf.save("your-pdf-filename.pdf");
-
-                    pdfButton.disabled = false;
-                });
-            });
-        });
-</script>
-<script>
-    // window.onload = function() {
-    //     window.print(); // Ini akan memicu perintah pencetakan otomatis saat halaman dimuat.
-    // }
+    window.onload = function() {
+        window.print();
+    }
     // Menggunakan URLSearchParams untuk mengambil data dari URL
     var urlParams = new URLSearchParams(window.location.search);
     var dataParam = urlParams.get("data");

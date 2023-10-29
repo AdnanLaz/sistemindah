@@ -15,6 +15,6 @@
         header("location:../index.php");
     }
     else {
-        header("location:login.php?pesan==gagal");
+        header("location:../login2.html?pesan==gagal");
     }
 ?>

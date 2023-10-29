@@ -215,6 +215,7 @@ if (isset($_POST['submit'])) {
                                             <div class="form-row">
                                                 <div class="col-md-4 mb-3">
                                                     <label for="validationCustom01">Asal</label>
+                                                    <br>
                                                     <div class="dropdown">
                                                         <input type="text" name="asal" onclick="myFunctionAsal()" class="form-control" id="dropdownInputAsal" placeholder="Masukan Kota Asal" readonly required>
                                                         <div id="myDropdownAsal" class="dropdown-content">
@@ -224,6 +225,7 @@ if (isset($_POST['submit'])) {
                                                 </div>
                                                 <div class="col-md-4 mb-3">
                                                     <label for="validationCustom01">Tujuan</label>
+                                                    <br>
                                                     <div class="dropdown">
                                                         <input type="text" name="tujuan" onclick="myFunctionTujuan()" class="form-control" id="dropdownInputTujuan" placeholder="Masukan Kota Tujuan" readonly required>
                                                         <div id="myDropdownTujuan" class="dropdown-content">
@@ -363,7 +365,7 @@ if (isset($_POST['submit'])) {
             var dropdown = document.getElementById("myDropdownTujuan");
             dropdown.style.display = "block"; // Ditambahkan di sini
         }
-            var optionsAsal = ["Yogyakarta"];
+            var optionsAsal = ["YOGYAKARTA"];
             var dropdownDivAsal = document.getElementById('myDropdownAsal');
 
             optionsAsal.forEach(function(option) {
