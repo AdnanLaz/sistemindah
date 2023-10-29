@@ -17,9 +17,18 @@ function getFormattedDate(date) {
     return formatter.format(date);
 }
 
+function handleDateChange(event) {
+    const dateInput = document.getElementById("tanggal")
+    const selectedDate = new Date(event.target.value);
+
+    if (selectedDate.getDay() === 0) {
+        alert('Please select a date other than Sunday.');
+        dateInput.value = '';
+    }
+}
+
 function inputAda() {
     var tanggal = new Date(document.getElementById("tanggal").value); // Mengambil tanggal dari input
-    console.log(tanggal);
     var nominal = document.getElementById("nominal").value;
 
     if (tanggal.toString() === "Invalid Date" || nominal === "") {
@@ -32,11 +41,13 @@ function inputAda() {
         hasilInputArray.push({ tanggal: formattedTanggal, nominal: formattedNominal });
 
         let nextDay = new Date(tanggal);
-        nextDay.setDate(tanggal.getDate() + 1);
+        if(nextDay.getDay()==6){
+            nextDay.setDate(tanggal.getDate() + 2);
+        } else{
+            nextDay.setDate(tanggal.getDate() + 1);
+        }
     
         let nextDayFormatted = nextDay.toISOString().slice(0,10)
-        console.log("nextDayFormatted",nextDayFormatted);
-
         document.getElementById("tanggal").value = nextDayFormatted;
 
         tampilkanData(); // Memanggil fungsi tampilkanData() untuk memperbarui tampilan
