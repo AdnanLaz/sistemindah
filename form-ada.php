@@ -225,7 +225,7 @@
                                     <form id="inputAda-form">
                                         <div class="form-group">
                                             <label for="example-date-input" class="col-form-label">Tanggal Form Ambilan</label>
-                                            <input class="form-control" type="date" value="yy-mm-dd" id="tanggal" required>
+                                            <input class="form-control" type="date" date_format  id="tanggal" required>
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">

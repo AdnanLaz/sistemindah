@@ -19,20 +19,29 @@ function getFormattedDate(date) {
 
 function inputAda() {
     var tanggal = new Date(document.getElementById("tanggal").value); // Mengambil tanggal dari input
+    console.log(tanggal);
     var nominal = document.getElementById("nominal").value;
 
     if (tanggal.toString() === "Invalid Date" || nominal === "") {
         alert("Harap Input Data Dengan Benar");
         return;
     } else {
-        var formattedTanggal = getFormattedDate(tanggal); // Memformat tanggal dalam bahasa Indonesia
-        var formattedNominal = formatRupiah(nominal);
+        const formattedTanggal = getFormattedDate(tanggal); // Memformat tanggal dalam bahasa Indonesia
+        const formattedNominal = formatRupiah(nominal);
 
         hasilInputArray.push({ tanggal: formattedTanggal, nominal: formattedNominal });
 
+        let nextDay = new Date(tanggal);
+        nextDay.setDate(tanggal.getDate() + 1);
+    
+        let nextDayFormatted = nextDay.toISOString().slice(0,10)
+        console.log("nextDayFormatted",nextDayFormatted);
+
+        document.getElementById("tanggal").value = nextDayFormatted;
+
         tampilkanData(); // Memanggil fungsi tampilkanData() untuk memperbarui tampilan
     }
-    simpanDataKeLocalStorage();
+    // simpanDataKeLocalStorage();
 }
 
 
@@ -91,7 +100,6 @@ function ubahJumlahInput() {
         kolomInput.appendChild(input);
         kolomInput.appendChild(lineBreak);
     }
-    simpanDataKeLocalStorage();
 }
 
 
@@ -137,24 +145,6 @@ function cetakHasilInput() {
     }
 }
 
-function loadDataFromStorage() {
-    var savedHasilInputArray = JSON.parse(localStorageStorage.getItem('hasilInputArray')) || [];
-    var savedUbahJumlahInputData = JSON.parse(localStorage.getItem('ubahJumlahInputData')) || [];
-
-    if (savedHasilInputArray.length > 0) {
-        hasilInputArray = savedHasilInputArray;
-    }
-
-    if (savedUbahJumlahInputData.length > 0) {
-        inputValues = savedUbahJumlahInputData;
-    }
-}
-
-// Fungsi untuk menyimpan data ke sessionStorage dan localStorage
-function simpanDataKeStorage() {
-    localStorageStorage.setItem('hasilInputArray', JSON.stringify(hasilInputArray));
-    localStorage.setItem('ubahJumlahInputData', JSON.stringify(inputValues));
-}
 
 // Panggil fungsi ini saat halaman dimuat
 window.onload = isiTanggalDanWaktu,function () {
