@@ -96,6 +96,11 @@ if (isset($_POST['submit'])) {
 .dropdown a:hover {background-color: #ddd;}
 
 .show {display: block;}
+
+.hasil-cek{
+    padding:0px 60px;
+}
+
 </style>
 </head>
 
@@ -253,6 +258,7 @@ if (isset($_POST['submit'])) {
                                 <div class="card" <?php if (!isset($_POST['submit'])) { echo 'hidden'; } ?>>
                                     <div class="card-body">
                                         <h4 class="header-title">Hasil Cek Tarif</h4>
+                                        <br>
                                         <?php
                                             include 'proses/koneksi.php';
                                             $query = mysqli_query($konek, "SELECT * FROM destinasi WHERE kota = '$tujuan'");
@@ -260,18 +266,68 @@ if (isset($_POST['submit'])) {
                                                 $hargak = $data['harga'];
                                                 $ongkir = $berat * $hargak;
                                         ?>
-                                                <p>Asal     : <?php echo $asal; ?></p>
-                                                <p>Tujuan   : <?php echo $tujuan; ?></p>
-                                                <p>Harga/kg : Rp. <?php echo number_format($data['harga'], 0, ',', '.'); ?></p>
-                                                <p>Berat    : <?php echo $berat; ?> Kg</p>
-                                                <p>Ongkir   : Rp. <?php echo number_format($ongkir, 0, ',', '.'); ?></p>
+                                        <div class="row hasil-cek">
+                                            <div class="col-5">
+                                                <div class="timeline-task">
+                                                    <div class="icon bg2">
+                                                        <i class="fa fa-map-pin fa-lg"></i>
+                                                    </div>
+                                                    <div class="tm-title">
+                                                        <h4>Asal</h4>
+                                                    </div>
+                                                    <p><?php echo $asal; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-1"></div>
+                                            <div class="col-5">
+                                                <div class="timeline-task">
+                                                    <div class="icon bg2">
+                                                        <i class="fa fa-map-marker fa-lg"></i>
+                                                    </div>
+                                                    <div class="tm-title">
+                                                        <h4>Tujuan</h4>
+                                                    </div>
+                                                    <p><?php echo $tujuan; ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="row hasil-cek">
+                                            <div class="col-5">
+                                                <div class="timeline-task">
+                                                    <div class="icon bg1">
+                                                        <i class="fa fa-money fa-lg"></i>
+                                                    </div>
+                                                    <div class="tm-title">
+                                                        <h4>Harga/kg</h4>
+                                                    </div>
+                                                    <p>Rp. <?php echo number_format($data['harga'], 0, ',', '.'); ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-1"></div>
+                                            <div class="col-5">
+                                                <div class="timeline-task">
+                                                    <div class="icon bg1">
+                                                        <i class="fa fa-balance-scale fa-lg"></i>
+                                                    </div>
+                                                    <div class="tm-title">
+                                                        <h4>Berat</h4>
+                                                    </div>
+                                                    <p><?php echo $berat; ?> Kg</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">Total Ongkir</span>
+                                                </div>
+                                                <input type="text" class="form-control format" value="Rp. <?php echo number_format($ongkir, 0, ',', '.');?>" readonly style="font-weight: bold; font-size: 20px; ">
+                                            </div>
                                         <?php
                                             }
                                         ?>
                                     </div>
-                                </div>
-                                <div>
-                                
                                 </div>
                             </div>
                             <!-- Textual inputs end -->
